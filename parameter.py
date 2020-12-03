@@ -161,6 +161,7 @@ y=[40,40,2*10**(-7)]       #defined twice, to store the changed values
 while i<iterations:     
     print(i)      #keep track of iterations
     #based on the algorithm we studied in class
+    #sigma chosen by trail and error
     y[0]=abs(np.random.normal(xt[0],0.5))
     num=Like(h,model(y))
     den=Like(h,model(xt))
@@ -213,7 +214,7 @@ sum=0
 for i in range(len(distd)):
     print(i)
     a=sp.exp(Like(h,model(distd[i])))
-    sum=sum+a     #sum of all probabilities, for normalising
+    sum=sum+a                                   #sum of all probabilities, for normalising
     prob.append(a)
 prob=[prob[i]/sum for i in range(len(prob))]    #normalising  
 ind=prob.index(max(prob))                       #finding max probability
