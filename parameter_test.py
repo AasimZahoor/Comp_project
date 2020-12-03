@@ -104,7 +104,7 @@ def model(y):
 
     Parameters
     ----------
-    y :array of parameters: [mass, sigma of noise]
+    y :array of parameters: [m1, m2]
 
     Returns
     -------

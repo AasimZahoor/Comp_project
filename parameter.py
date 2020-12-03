@@ -22,7 +22,6 @@ import sympy as sp    # np.exp doesn't save smaller values but sp.exp does
 
 
 
-
 # This code is divided into two parts 1) Data generation 2) Parameter estimation 
 
 #----------------------------------------Generating DATA----------------------------------------------------
@@ -55,18 +54,21 @@ while i<=7000:     #7000 to keep the data well within the inspiral phase. Calcul
     noise=np.random.normal(0,1*10**(-7))
     hi=u*M/(r*Ri)+noise  #strain
     h.append(hi)
-    hn.append(-hi)
     R.append(Ri)
     Ri=Ri-dt*(u*M**2)/Ri**3    #using forward difference method
     t.append(ti)
     ti=ti+dt
     i=i+1
-plt.title("Data v/s time")
-plt.xlabel("time in meters")
-plt.ylabel("Strain")
+plt.title("Data v/s time",fontsize=24)
+plt.xlabel("time in meters",fontsize=20)
+plt.ylabel("Strain",fontsize=20)
 plt.plot(t,h)
 
-plt.savefig("Images/data")
+# save as a pdf
+fig = plt.gcf()
+fig.set_size_inches(7,5)
+fig.savefig('Images/data.pdf', dpi=100, bbox_inches='tight', pad_inches=1.)
+
 
 
 
@@ -114,7 +116,7 @@ def model(y):
 
     Parameters
     ----------
-    y :array of parameters: [mass, sigma of noise]
+    y :array of parameters: [m1, m2]
 
     Returns
     -------
@@ -218,19 +220,27 @@ ind=prob.index(max(prob))                       #finding max probability
 print("the value of parameters is",distd[ind])
 
 #plotting
+
+
 mass1=distd[ind][0]
 mass2=distd[ind][1]
 sigma=distd[ind][2]
 distd=np.array(distd)
 x=distd[:,0]
 y=distd[:,1]
-plt.title("Sampling through parameter space")
-plt.xlabel("m1")
-plt.ylabel("m2")
+plt.title("Sampling through parameter space",fontsize=20)
+plt.xlabel(r"$m_1$",fontsize=20)
+plt.ylabel(r"$m_2$",fontsize=20)
 plt.axvline(x=mass1)   #most probable values 
 plt.axhline(y=mass2)
 plt.scatter(x, y,color="red")
-plt.savefig("Images/corner")
+
+# save as a pdf
+fig = plt.gcf()
+fig.set_size_inches(7,5)
+fig.savefig('Images/corner.pdf', dpi=100, bbox_inches='tight', pad_inches=1.)
+
+
 plt.show()
 
 
